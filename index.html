@@ -56,11 +56,37 @@
             //var image = document.getElementById('image1');
             //image.src = "data:image/jpeg;base64," + imageData;
             $("#image1").attr("src", "data:image/jpeg;base64," + imageData);
+            var options = new FileUploadOptions();
+            options.fileKey="file";
+            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+            options.mimeType="image/jpeg";
+
+            var params = {};
+            params.value1 = "test";
+            params.value2 = "param";
+
+            options.params = params;
+
+            var ft = new FileTransfer();
+            ft.upload(imageURI, encodeURI("http://localhost/demophonegap/upload.php"), win, fail, options);
         }
 
         function onFail(message) {
             alert('Failed because: ' + message);
         }
+        function win(r) {
+        	alert("Upload success");
+            console.log("Code = " + r.responseCode);
+            console.log("Response = " + r.response);
+            console.log("Sent = " + r.bytesSent);
+        }
+
+        function fail(error) {
+            alert("An error has occurred: Code = " + error.code);
+            console.log("upload error source " + error.source);
+            console.log("upload error target " + error.target);
+        }
+
     	</script>
     </head>
     <body>
