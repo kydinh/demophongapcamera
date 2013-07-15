@@ -56,7 +56,7 @@
             //var image = document.getElementById('image1');
             //image.src = "data:image/jpeg;base64," + imageData;
             $("#image1").attr("src", "data:image/jpeg;base64," + imageData);
-            /*var options = new FileUploadOptions();
+            var options = new FileUploadOptions();
             options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
@@ -68,7 +68,7 @@
             options.params = params;
 
             var ft = new FileTransfer();
-            ft.upload(imageURI, encodeURI("http://192.168.1.123/demophonegap/upload.php"), win, fail, options);*/
+            ft.upload(imageURI, encodeURI("http://192.168.1.123/demophonegap/upload.php"), win, fail, options);
         }
 
         function onFail(message) {
