@@ -63,8 +63,9 @@
             name = mediaFile.name;
 
         ft.upload(path,
-            "http://my.domain.com/upload.php",
+            "http://192.168.1.123/demophonegap/upload.php",
             function(result) {
+                alert(result.responseCode);
                 console.log('Upload success: ' + result.responseCode);
                 console.log(result.bytesSent + ' bytes sent');
             },
