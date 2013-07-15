@@ -59,17 +59,16 @@
             var ft = new FileTransfer(),
             path = imageData.fullPath,
             name = imageData.name;
-            alert(path);
-            alert(name);
+            
             var options = new FileUploadOptions();
             options.fileKey="file";
             options.fileName=imageData.substr(imageData.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
-            alert("options");
+            
             var params = {};
             params.value1 = "test";
             params.value2 = "param";
-            alert("params");
+            
             options.params = params;
 
             
@@ -81,7 +80,7 @@
             alert('Failed because: ' + message);
         }
         function win(r) {
-            alert("Upload success"+r.responseCode);
+            alert("Upload success"+r.response);
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
