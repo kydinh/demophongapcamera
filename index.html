@@ -55,8 +55,8 @@
         function onSuccess(imageData) {
             //var image = document.getElementById('image1');
             //image.src = "data:image/jpeg;base64," + imageData;
-            /*$("#image1").attr("src", "data:image/jpeg;base64," + imageData);
-            var options = new FileUploadOptions();
+            $("#image1").attr("src", "data:image/jpeg;base64," + imageData);
+            /*var options = new FileUploadOptions();
             options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
@@ -101,7 +101,7 @@
                 </p>
                 <p>
                     <a href="index2.html" style="cursor: pointer;" data-role="button">Detail</a>
-                    
+
                 </p>
             </div>
             <div data-role="footer" data-position="fixed" >
