@@ -30,29 +30,54 @@
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
 
-    	<script type="text/javascript">
-	    	document.addEventListener("deviceready", onDeviceReady, false);
-	
-	        // Cordova is ready
-	        //
-	        function onDeviceReady() {
-	        	
-	        }
-        
-		</script>
+    	<script type="text/javascript" charset="utf-8">
+
+    // Called when capture operation is finished
+    //
+    function captureSuccess(mediaFiles) {
+        var i, len;
+        for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+            uploadFile(mediaFiles[i]);
+        }       
+    }
+
+    // Called if something bad happens.
+    // 
+    function captureError(error) {
+        var msg = 'An error occurred during capture: ' + error.code;
+        navigator.notification.alert(msg, null, 'Uh oh!');
+    }
+
+    // A button will call this function
+    //
+    function captureImage() {
+        // Launch device camera application, 
+        // allowing user to capture up to 2 images
+        navigator.device.capture.captureImage(captureSuccess, captureError, {limit: 2});
+    }
+
+    // Upload files to server
+    function uploadFile(mediaFile) {
+        var ft = new FileTransfer(),
+            path = mediaFile.fullPath,
+            name = mediaFile.name;
+
+        ft.upload(path,
+            "http://my.domain.com/upload.php",
+            function(result) {
+                console.log('Upload success: ' + result.responseCode);
+                console.log(result.bytesSent + ' bytes sent');
+            },
+            function(error) {
+                console.log('Error uploading file ' + path + ': ' + error.code);
+            },
+            { fileName: name });   
+    }
+
+    </script>
     </head>
     <body>
-        <div data-role="page">
-			<div data-role="header">
-				<h1>Header</h1>
-			</div>
-			<div data-role="content">
-				<img alt="" src="">
-			</div>
-			<div data-role="footer" data-position="fixed" >
-				<h4>Footer</h4>
-			</div>
-		</div>
+        <button onclick="captureImage();">Capture Image</button> <br>
     </body>
      
 </html>
