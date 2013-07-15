@@ -60,15 +60,16 @@
             options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
-
+            alert("options");
             var params = {};
             params.value1 = "test";
             params.value2 = "param";
-
+            alert("params");
             options.params = params;
 
             var ft = new FileTransfer();
             ft.upload(imageURI, encodeURI("http://192.168.1.123/demophonegap/upload.php"), win, fail, options);
+            alert("ft");
         }
 
         function onFail(message) {
