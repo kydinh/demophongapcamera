@@ -31,11 +31,15 @@
         <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
 
         <script type="text/javascript">
+        var Latitude="";
+        var Longitude="";
         document.addEventListener("deviceready", onDeviceReady, false);
 
         // Cordova is ready
         //
         function onDeviceReady() {
+            navigator.geolocation.getCurrentPosition(onSuccessLocation, onError);
+
             pictureSource=navigator.camera.PictureSourceType;
             destinationType=navigator.camera.DestinationType;
             var txtDeviceInfo = 'Device Name: '     + device.name     + '<br />' + 
@@ -51,7 +55,16 @@
             });
         }
         
-        
+        function onSuccessonSuccessLocation(position) {
+            Latitude = position.coords.latitude ;
+            Longitude = position.coords.longitude ;
+        }
+
+        function onError(error) {
+            alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+        }
+
         function onSuccess(imageData) {
             //var image = document.getElementById('image1');
             //image.src = "data:image/jpeg;base64," + imageData;
@@ -66,8 +79,8 @@
             options.mimeType="image/jpeg";
             
             var params = {};
-            params.value1 = "test";
-            params.value2 = "param";
+            params.lat = Latitude;
+            params.long = Longitude;
             
             options.params = params;
 
