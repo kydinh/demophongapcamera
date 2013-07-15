@@ -75,7 +75,7 @@
             alert('Failed because: ' + message);
         }
         function win(r) {
-        	alert("Upload success");
+        	alert("Upload success"+r.responseCode);
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
