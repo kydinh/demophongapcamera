@@ -61,19 +61,19 @@
             name = imageData.name;
             alert(path);
             alert(name);
-            /*var options = new FileUploadOptions();
+            var options = new FileUploadOptions();
             options.fileKey="file";
-            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+            options.fileName=imageData.substr(imageData.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
             alert("options");
             var params = {};
             params.value1 = "test";
             params.value2 = "param";
             alert("params");
-            options.params = params;*/
+            options.params = params;
 
             
-            //ft.upload(imageURI, encodeURI("http://192.168.1.123/demophonegap/upload.php"), win, fail, options);
+            ft.upload(imageData, encodeURI("http://192.168.1.123/demophonegap/upload.php"), win, fail, options);
             
         }
 
