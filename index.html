@@ -56,9 +56,10 @@
             //var image = document.getElementById('image1');
             //image.src = "data:image/jpeg;base64," + imageData;
             $("#image1").attr("src", "data:image/jpeg;base64," + imageData);
-            var ft = new FileTransfer(),
+            alert("ft");
+            /*var ft = new FileTransfer(),
             path = imageData.fullPath,
-            name = imageData.name;
+            name = imageData.name;*/
             /*var options = new FileUploadOptions();
             options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -71,8 +72,8 @@
             options.params = params;*/
 
             
-            ft.upload(imageURI, encodeURI("http://192.168.1.123/demophonegap/upload.php"), win, fail, options);
-            alert("ft");
+            /*ft.upload(imageURI, encodeURI("http://192.168.1.123/demophonegap/upload.php"), win, fail, options);
+            alert("ft");*/
         }
 
         function onFail(message) {
