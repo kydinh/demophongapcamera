@@ -55,7 +55,7 @@
         function onSuccess(imageData) {
             //var image = document.getElementById('image1');
             //image.src = "data:image/jpeg;base64," + imageData;
-            $("#image1").attr("src", "data:image/jpeg;base64," + imageData);
+            $("#image1").attr("src",  imageData);
             var ft = new FileTransfer(),
             path = imageData.fullPath,
             name = imageData.name;

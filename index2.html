@@ -30,57 +30,54 @@
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
 
-    	<script type="text/javascript" charset="utf-8">
+    	 <script type="text/javascript" charset="utf-8">
 
-        // Wait for PhoneGap to load
-        //
-        document.addEventListener("deviceready", onDeviceReady, false);
+    // Called when capture operation is finished
+    //
+    function captureSuccess(mediaFiles) {
+        var i, len;
+        for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+            uploadFile(mediaFiles[i]);
+        }       
+    }
 
-        // PhoneGap is ready
-        //
-        function onDeviceReady() {
-            pictureSource=navigator.camera.PictureSourceType;
-            destinationType=navigator.camera.DestinationType;
-            // Retrieve image file location from specified source
-            navigator.camera.getPicture(uploadPhoto,
-                                        function(message) { alert('get picture failed'); },
-                                        { quality: 50, 
-                                        destinationType: navigator.camera.DestinationType.FILE_URI}
-                                        );
+    // Called if something bad happens.
+    // 
+    function captureError(error) {
+        var msg = 'An error occurred during capture: ' + error.code;
+        navigator.notification.alert(msg, null, 'Uh oh!');
+    }
 
-        }
+    // A button will call this function
+    //
+    function captureAudio() {
+        // Launch device audio recording application, 
+        // allowing user to capture up to 2 audio clips
+        navigator.device.capture.captureAudio(captureSuccess, captureError, {limit: 2});
+    }
 
-        function uploadPhoto(imageURI) {
-            var options = new FileUploadOptions();
-            options.fileKey="file";
-            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
-            options.mimeType="image/jpeg";
+    // Upload files to server
+    function uploadFile(mediaFile) {
+        var ft = new FileTransfer(),
+            path = mediaFile.fullPath,
+            name = mediaFile.name;
 
-            var params = new Object();
-            params.value1 = "test";
-            params.value2 = "param";
+        ft.upload(path,
+            "http://my.domain.com/upload.php",
+            function(result) {
+                console.log('Upload success: ' + result.responseCode);
+                console.log(result.bytesSent + ' bytes sent');
+            },
+            function(error) {
+                console.log('Error uploading file ' + path + ': ' + error.code);
+            },
+            { fileName: name });   
+    }
 
-            options.params = params;
-
-            var ft = new FileTransfer();
-            ft.upload(imageURI, "http://some.server.com/upload.php", win, fail, options);
-        }
-
-        function win(r) {
-            console.log("Code = " + r.responseCode);
-            console.log("Response = " + r.response);
-            console.log("Sent = " + r.bytesSent);
-        }
-
-        function fail(error) {
-            alert("An error has occurred: Code = " = error.code);
-        }
-
-        </script>
-</head>
-<body>
-    <h1>Example</h1>
-    <p>Upload File</p>
-</body>
+    </script>
+    </head>
+    <body>
+        <button onclick="captureAudio();">Capture Audio</button> <br>
+    </body>
      
 </html>
